@@ -44,3 +44,12 @@ RUN cd /usr/local && \
     cd $AMBERHOME && ./configure -noX11 gnu && make install  && \
     cd $AMBERHOME && ./configure -mpi -noX11 gnu && make install && \
     rm -rf $AMBERHOME/AmberTools/src
+
+ARG ONEDATA_VERSION="3.0.0-beta4"
+
+RUN apt-get update && apt-get install -y curl
+RUN curl -o install.sh http://onedata-dev-packages.cloud.plgrid.pl/oneclient.sh && \
+sh install.sh ${ONEDATA_VERSION}
+
+ENV AUTHENTICATION=token
+ENV NO_CHECK_CERTIFICATE=true
