@@ -13,10 +13,12 @@ ENV AMBERHOME /usr/local/amber14
 ENV PATH $PATH:/usr/lib64/openmpi/bin/:$AMBERHOME/bin
 ENV LD_LIBRARY_PATH $AMBERHOME/lib
 RUN ansible-galaxy install indigo-dc.ambertools && \
-    ansible-playbook /etc/ansible/roles/indigo-dc.ambertools/tests/ambertools.yml
+    ansible-galaxy install maricaantonacci.oneclient && \
+    ansible-playbook /etc/ansible/roles/indigo-dc.ambertools/tests/ambertools.yml && \
+    ansible-playbook /etc/ansible/roles/maricaantonacci.oneclient/tests/test.yml
 
-RUN wget --no-check-certificate -q -O - https://get.onedata.org/oneclient.sh | bash
-RUN apt-get install --only-upgrade libtbb2
+#RUN wget --no-check-certificate -q -O - https://get.onedata.org/oneclient.sh | bash
+#RUN apt-get install --only-upgrade libtbb2
 
 RUN apt-get clean \
     && rm -rf /var/lib/apt/lists/*
